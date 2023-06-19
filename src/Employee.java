@@ -5,9 +5,9 @@ public class Employee {
     private final int id;
 
 
-    public static int counter = 0;
+    public static int counter = 1;
 
-    public Employee(String fullName, int department, double salary, int id) {
+    public Employee(String fullName, int department, double salary) {
         this.fullName = fullName;
         this.department = department;
         this.salary = salary;
@@ -30,8 +30,16 @@ public class Employee {
         return id;
     }
 
+    public void setDepartment(int department) {
+        this.department = department;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
     @Override
     public String toString() {
-        return fullName + " " + department + " " + salary + " " + id;
+        return "ФИО - " + fullName + ", отдел " + department + ", зарплата " + salary + ", ID " + id;
     }
 }
