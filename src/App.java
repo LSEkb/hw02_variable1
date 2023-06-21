@@ -1,30 +1,22 @@
+import java.util.Arrays;
+
 public class App {
     static Employee[] employees = new Employee[10];
-    public static void main(String[] args){
+
+    public static void main(String[] args) {
 
         // данные для массива
 
-        Employee nicYV = new Employee("Никулин Юрий Владимирович", 1, 140);
-        Employee vicGM = new Employee("Вицин Георгий Михайлович", 1, 130);
-        Employee morEa = new Employee("Моргунов Евгений Александрович", 1, 120);
-        Employee demAS = new Employee("Демьяненко Александр Сергеевич", 2, 100);
-        Employee celNI = new Employee("Селезнева Наталья Игоревна", 2, 115);
-        Employee varNV = new Employee("Варлей Наталья Владимировна", 2, 105);
-        Employee pugMI = new Employee("Пуговкин Михаил Иванович", 3, 80);
-        Employee basVP = new Employee("Басов Владимир Павлович", 3, 125);
-        Employee greNP = new Employee("Гребешкова Нина Павловна", 4, 90);
-        Employee papAD = new Employee("Папанов Анатолий Дмитриевич", 5, 130);
-
-        employees[0] = nicYV;
-        employees[1] = vicGM;
-        employees[2] = morEa;
-        employees[3] = demAS;
-        employees[4] = celNI;
-        employees[5] = varNV;
-        employees[6] = pugMI;
-        employees[7] = basVP;
-        employees[8] = greNP;
-        employees[9] = papAD;
+        employees[0] = new Employee("Никулин Юрий Владимирович", 1, 140);
+        employees[1] = new Employee("Вицин Георгий Михайлович", 1, 130);
+        employees[2] = new Employee("Моргунов Евгений Александрович", 1, 120);
+        employees[3] = new Employee("Демьяненко Александр Сергеевич", 2, 80);
+        employees[4] = new Employee("Селезнева Наталья Игоревна", 2, 115);
+        employees[5] = new Employee("Варлей Наталья Владимировна", 2, 105);
+        employees[6] = new Employee("Пуговкин Михаил Иванович", 3, 80);
+        employees[7] = new Employee("Басов Владимир Павлович", 3, 125);
+        employees[8] = new Employee("Гребешкова Нина Павловна", 4, 90);
+        employees[9] = new Employee("Папанов Анатолий Дмитриевич", 5, 140);
 
         // проверка работы методов
 
@@ -33,9 +25,12 @@ public class App {
         System.out.println();
         System.out.println("Всего расходы на зарплату в месяц: " + sumSalaryInMonth() + " руб.");
         System.out.println();
-        System.out.println("Минимальная зарплата за месяц составила " + minSalaryInMonth() + " руб.");
+        Employee[] empMin = minSalaryEmployee();
+        for (int i = 0; i < employees.length; i++) {
+            if (empMin[i] != null) System.out.println("Минимальная зарплата за месяц у сотрудника " + empMin[i]);
+        }
         System.out.println();
-        System.out.println("Максимальная зарплата за месяц составила " + maxSalaryInMonth() + " руб.");
+        System.out.println(maxSalaryEmployee());
         System.out.println();
         System.out.println("Средняя зарплата за месяц составила " + middleSalaryInMonth() + " руб.");
         System.out.println();
@@ -57,25 +52,52 @@ public class App {
         return sum;
     }
 
-    public static double minSalaryInMonth() {
+    public static Employee[] minSalaryEmployee() {
         double min = employees[0].getSalary();
+        Employee[] emplMin = new Employee[employees.length];
         for (Employee employee : employees) {
-            if (employee.getSalary() < min) {
+            if (employee.getSalary() <= min) {
                 min = employee.getSalary();
             }
         }
-        return min;
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i].getSalary() == min) {
+                emplMin[i] = employees[i];
+            }
+        }
+        return emplMin;
     }
+    // вариант метода для случаев, когда у нас несколько сотрудников получают минимальную зарплату
 
-    public static double maxSalaryInMonth() {
+    public static Employee[] maxSalaryEmployee() {
         double max = employees[0].getSalary();
+        Employee[] emplMax = new Employee[employees.length];
         for (Employee employee : employees) {
-            if (employee.getSalary() > max) {
+            if (employee.getSalary() >= max) {
                 max = employee.getSalary();
             }
         }
-        return max;
+        int k = 0;
+        for (int i = 0; i < employees.length; i++) {
+            if (employees[i].getSalary() == max) {
+                emplMax[i] = employees[i];
+                if (emplMax[i] != null) {
+                    k++;
+                }
+            }
+        }
+        Employee[] emplMaxFinal = new Employee[k];
+        int j = 0;
+        for (int i = 0; i < emplMax.length; i++) {
+            if (emplMax[i] != null) {
+                emplMaxFinal[j] = emplMax[i];
+                j++;
+            }
+        }
+        //System.out.println(Arrays.toString(emplMaxFinal));
+        return emplMaxFinal;
     }
+    // втащим сюда удаление пустых ячеек
 
     public static double middleSalaryInMonth() {
         return sumSalaryInMonth() / employees.length;
