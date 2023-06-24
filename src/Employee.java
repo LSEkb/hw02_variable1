@@ -1,21 +1,46 @@
 public class Employee {
-    String fullName;
-    int department;
-    double salary;
+    private String surname;
+    private String name;
+    private String patronymic;
+    private int department;
+    private double salary;
     private final int id;
 
 
     public static int counter = 1;
 
-    public Employee(String fullName, int department, double salary) {
-        this.fullName = fullName;
+    public Employee(String surname, String name, String patronymic, int department, double salary) {
+        this.surname = surname;
+        this.name = name;
+        this.patronymic = patronymic;
+        this.department = department;
+        this.salary = salary;
+        this.id = counter++;
+    }
+
+    /*public Employee() {
+        this.surname = surname;
+        this.surname = name;
+        this.surname = patronymic;
         this.department = department;
         this.salary = salary;
         this.id = counter++;
     }
 
     public String getFullName() {
-        return fullName;
+        return surname + name + patronymic;
+    }*/
+
+    public String getSurname() {
+        return surname;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPatronymic() {
+        return patronymic;
     }
 
     public int getDepartment() {
@@ -31,7 +56,10 @@ public class Employee {
     }
 
     public void setDepartment(int department) {
-        this.department = department;
+        int n1 = 1, n2 = 5;
+        if (department >= n1 && department <= n2) {
+            this.department = department;
+        }
     }
 
     public void setSalary(double salary) {
@@ -40,6 +68,6 @@ public class Employee {
 
     @Override
     public String toString() {
-        return "ФИО - " + fullName + ", отдел " + department + ", зарплата " + salary + ", ID " + id;
+        return id + " ФИО - " + surname + " " + name + " " + patronymic + ", отдел " + department + ", зарплата " + salary;
     }
 }
